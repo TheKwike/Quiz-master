@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Master</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Tela de Splash (inicial) -->
+        <div id="splash-screen" class="screen active">
+            <div class="splash-content">
+                <div class="logo-container">
+                    <div class="logo">
+                        <i class="icon">💡</i>
+                    </div>
+                </div>
+                <h1>Quiz Master</h1>
+                <p>Teste seus conhecimentos!</p>
+            </div>
+        </div>
+
+        <!-- Tela Inicial -->
+        <div id="home-screen" class="screen">
+            <div class="header">
+                <h1>Quiz Master</h1>
+                <p>Teste seus conhecimentos e desafie seus amigos!</p>
+            </div>
+            
+            <div class="game-modes">
+                <div class="game-mode-card" data-mode="classic">
+                    <div class="mode-icon">
+                        <i class="icon">📈</i>
+                    </div>
+                    <div class="mode-info">
+                        <h3>Caminho para o Milhão</h3>
+                        <p>Responda perguntas de dificuldade crescente e teste seus conhecimentos.</p>
+                    </div>
+                    <div class="mode-arrow">›</div>
+                </div>
+                
+                <div class="game-mode-card" data-mode="daily">
+                    <div class="mode-icon">
+                        <i class="icon">📅</i>
+                    </div>
+                    <div class="mode-info">
+                        <h3>Desafio Diário</h3>
+                        <p>Um novo conjunto de perguntas todos os dias para manter suas habilidades afiadas.</p>
+                    </div>
+                    <div class="mode-arrow">›</div>
+                </div>
+                
+                <div class="game-mode-card" data-mode="duel">
+                    <div class="mode-icon">
+                        <i class="icon">👥</i>
+                    </div>
+                    <div class="mode-info">
+                        <h3>Duelo</h3>
+                        <p>Desafie seus amigos ou jogadores aleatórios em uma competição em tempo real.</p>
+                    </div>
+                    <div class="mode-arrow">›</div>
+                </div>
+                
+                <div class="game-mode-card" data-mode="infinite">
+                    <div class="mode-icon">
+                        <i class="icon">♾️</i>
+                    </div>
+                    <div class="mode-info">
+                        <h3>Modo Infinito</h3>
+                        <p>Responda a perguntas sem fim e veja até onde consegue chegar. Três vidas, uma sequência infinita!</p>
+                    </div>
+                    <div class="mode-arrow">›</div>
+                </div>
+            </div>
+            
+            <div class="nav-buttons">
+                <button class="nav-button" data-screen="profile-screen">
+                    <i class="icon">👤</i>
+                    <span>Perfil</span>
+                </button>
+                <button class="nav-button" data-screen="leaderboard-screen">
+                    <i class="icon">🏆</i>
+                    <span>Ranking</span>
+                </button>
+                <button class="nav-button" id="settings-button">
+                    <i class="icon">⚙️</i>
+                    <span>Configurações</span>
+                </button>
+            </div>
+            
+            <!-- Controles de áudio -->
+            <div class="audio-controls">
+                <button id="toggle-audio" class="audio-button">
+                    <i class="icon" id="audio-icon">🔊</i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Tela de Jogo -->
+        <div id="game-screen" class="screen">
+            <div class="game-header">
+                <div class="progress-container">
+                    <div class="progress-bar"></div>
+                </div>
+                <div class="game-info">
+                    <span class="question-counter">Pergunta 1/10</span>
+                    <span class="score-display">Pontos: 0</span>
+                </div>
+            </div>
+            
+            <div class="question-container">
+                <div class="category-difficulty">
+                    <span class="category">Categoria</span>
+                    <span class="difficulty">Dificuldade</span>
+                </div>
+                
+                <div class="question-text">
+                    <h2>Texto da pergunta aparecerá aqui?</h2>
+                </div>
+                
+                <div class="options-container">
+                    <!-- Opções serão inseridas dinamicamente -->
+                </div>
+            </div>
+            
+            <div class="help-buttons">
+                <button class="help-button" id="skip-help">
+                    <i class="icon">⏭️</i>
+                    <span>Pular</span>
+                </button>
+                <button class="help-button" id="eliminate-help">
+                    <i class="icon">❌</i>
+                    <span>Eliminar</span>
+                </button>
+                <button class="help-button" id="hint-help">
+                    <i class="icon">💡</i>
+                    <span>Dica</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Tela de Resultado -->
+        <div id="result-screen" class="screen">
+            <h1>Resultado</h1>
+            
+            <div class="result-message">
+                <h2>Excelente!</h2>
+            </div>
+            
+            <div class="score-container">
+                <h3>Sua pontuação</h3>
+                <div class="final-score">0</div>
+                <p class="max-score">de 1000 pontos possíveis</p>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="primary-button" id="play-again-button">
+                    <i class="icon">🔄</i>
+                    Jogar Novamente
+                </button>
+                <button class="secondary-button" id="home-button">
+                    <i class="icon">🏠</i>
+                    Menu Principal
+                </button>
+            </div>
+            
+            <button class="outline-button" id="share-button">
+                <i class="icon">📤</i>
+                Compartilhar Resultado
+            </button>
+        </div>
+
+        <!-- Tela de Perfil -->
+        <div id="profile-screen" class="screen">
+            <div class="screen-header">
+                <button class="back-button" data-screen="home-screen">
+                    <i class="icon">←</i>
+                </button>
+                <h1>Perfil</h1>
+            </div>
+            
+            <div class="profile-content">
+                <div class="avatar">
+                    <span>J</span>
+                </div>
+                
+                <h2 class="user-name">Jogador Anônimo</h2>
+                <p class="user-score">Pontuação Total: 0</p>
+                
+                <div class="profile-card">
+                    <h3>Estatísticas</h3>
+                    <div class="divider"></div>
+                    <div class="stat-item">
+                        <span>Jogos Completados</span>
+                        <span class="stat-value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Taxa de Acerto</span>
+                        <span class="stat-value">0%</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Melhor Categoria</span>
+                        <span class="stat-value">-</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Tempo Médio por Pergunta</span>
+                        <span class="stat-value">-</span>
+                    </div>
+                </div>
+                
+                <div class="profile-card">
+                    <h3>Conquistas</h3>
+                    <div class="divider"></div>
+                    <p class="empty-message">Jogue mais para desbloquear conquistas!</p>
+                </div>
+                
+                <button class="outline-button">
+                    <i class="icon">✏️</i>
+                    Editar Perfil
+                </button>
+            </div>
+        </div>
+
+        <!-- Tela de Ranking -->
+        <div id="leaderboard-screen" class="screen">
+            <div class="screen-header">
+                <button class="back-button" data-screen="home-screen">
+                    <i class="icon">←</i>
+                </button>
+                <h1>Ranking</h1>
+            </div>
+            
+            <div class="tabs">
+                <button class="tab-button active" data-tab="global">Global</button>
+                <button class="tab-button" data-tab="friends">Amigos</button>
+                <button class="tab-button" data-tab="weekly">Semanal</button>
+            </div>
+            
+            <div class="leaderboard-content">
+                <div class="leaderboard-list">
+                    <!-- Itens do ranking serão inseridos dinamicamente -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Dica -->
+    <div id="hint-modal" class="modal">
+        <div class="modal-content">
+            <h3>Dica</h3>
+            <p id="hint-text">Esta é uma dica para a pergunta atual.</p>
+            <button class="primary-button" id="close-hint">Entendi</button>
+        </div>
+    </div>
+
+    <!-- Modal de Configurações -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <h3>Configurações</h3>
+            <div class="settings-options">
+                <div class="setting-item">
+                    <span>Música de Fundo</span>
+                    <label class="switch">
+                        <input type="checkbox" id="music-toggle" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <span>Efeitos Sonoros</span>
+                    <label class="switch">
+                        <input type="checkbox" id="sound-effects-toggle" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <span>Volume</span>
+                    <input type="range" id="volume-slider" min="0" max="100" value="70">
+                </div>
+            </div>
+            <button class="primary-button" id="close-settings">Salvar</button>
+        </div>
+    </div>
+
+    <!-- Elemento de áudio para música de fundo -->
+    <audio id="background-music" loop>
+        <source src="music/background.mp3" type="audio/mpeg">
+    </audio>
+    
+    <!-- Elementos de áudio para efeitos sonoros -->
+    <audio id="correct-sound">
+        <source src="music/correct.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="incorrect-sound">
+        <source src="music/incorrect.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="click-sound">
+        <source src="music/click.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="script.js"></script>
+    <script src="infinite_mode.js"></script>
+    <script src="audio_manager.js"></script>
+</body>
+</html>
